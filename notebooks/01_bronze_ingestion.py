@@ -12,7 +12,7 @@
 
 # COMMAND ----------
 
-from pyspark.sql.functions import current_timestamp, input_file_name
+from pyspark.sql.functions import current_timestamp, col
 
 # COMMAND ----------
 
@@ -59,7 +59,7 @@ display(df_raw.limit(10))
 df_bronze = (
     df_raw
     .withColumn("_ingestion_timestamp", current_timestamp())
-    .withColumn("_source_file", input_file_name())
+    .withColumn("_source_file", col("_metadata.file_path"))
 )
 
 # COMMAND ----------
